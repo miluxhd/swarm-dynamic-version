@@ -1,0 +1,19 @@
+version: '3.8'
+
+configs:
+  nginx-$NGINX_CONFIG_VERSION:
+    file: $NGINX_CONFIG_PATH
+
+services:
+  nginx:
+    image: nginx:latest
+    configs:
+      - source: nginx-$NGINX_CONFIG_VERSION
+        target: /etc/nginx/nginx.conf
+    ports:
+      - "8080:80"
+    deploy:
+      update_config:
+        parallelism: 1
+        delay: 5s
+
